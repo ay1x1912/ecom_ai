@@ -1,5 +1,6 @@
 babymart-course-captions.srt
-babymart-course-transcript.txt# secrets — never commit
+babymart-course-transcript.txt
+# secrets — never commit
 .env
 .env.local
 .env.*.local
