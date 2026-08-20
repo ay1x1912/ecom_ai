@@ -1,0 +1,43 @@
+# Project name is pinned. Without it Compose derives the project from the
+# directory name, which is now "server" — the same name another repo on this
+# machine already uses, so `docker compose up` here would adopt THAT project's
+# containers and start this one against an empty volume.
+name: ecom_ai
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: babymart-mysql
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_0900_ai_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: babymart
+      MYSQL_USER: babymart
+      MYSQL_PASSWORD: babymart
+    # Host port 3307: another MySQL container already owns 3306 on this machine.
+    # Container-internal port stays 3306.
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-ubabymart", "-pbabymart"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: babymart-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  mysql_data:

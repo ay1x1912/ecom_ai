@@ -1,0 +1,25 @@
+babymart-course-captions.srt
+babymart-course-transcript.txt# secrets — never commit
+.env
+.env.local
+.env.*.local
+
+# dependencies
+node_modules/
+
+# logs
+logs/
+*.log
+npm-debug.log*
+
+# build / coverage
+dist/
+coverage/
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/
+
+# large local reference files (course transcript)
+*.srt

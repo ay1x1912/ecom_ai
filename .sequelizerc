@@ -1,0 +1,10 @@
+const path = require('path');
+
+// sequelize-cli predates ESM, so it reads a CommonJS config and .cjs migrations.
+// The app itself is ESM — see src/config/database.js for the runtime instance.
+module.exports = {
+  config: path.resolve('src/config/sequelize-cli.cjs'),
+  'models-path': path.resolve('src/models'),
+  'migrations-path': path.resolve('src/migrations'),
+  'seeders-path': path.resolve('src/seeders'),
+};
